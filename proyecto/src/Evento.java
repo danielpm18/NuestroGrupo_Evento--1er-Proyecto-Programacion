@@ -38,7 +38,7 @@ public class Evento {
         try(BufferedReader br = new BufferedReader(new FileReader("eventos.txt"))){
             String linea;
             while((linea = br.readLine()) != null){
-                evento[contador++] = Evento.fromString(Linea);
+              //  evento[contador++] = Evento.fromString(Linea);
             }
         }catch (Exception e){
             System.out.println("No se pudo cargar el archivo: " + e.getMessage());

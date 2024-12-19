@@ -16,13 +16,6 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    registrarEvento(scanner);
-                    break;
-                case 2:
-                    mostrarevento(scanner);
-                    break;
-                case 3:
-                    ...
 
             }
 
