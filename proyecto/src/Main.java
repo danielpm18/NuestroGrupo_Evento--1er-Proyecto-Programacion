@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args){
      //Inicio de Proyecto
-        System.out.println("PRUEBA");
+        System.out.println("Bienvenido al Proyecto de Eventos");
 
     }
 }
