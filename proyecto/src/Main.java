@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.File;
 public class Main {
     public static void main(String[] args){
+        //Creamos un array con capacidad de 5 eventos al día, en un mes serían 150 eventos al mes
         Evento [] evento = new Evento[150];
         System.out.print("ID:");
 
