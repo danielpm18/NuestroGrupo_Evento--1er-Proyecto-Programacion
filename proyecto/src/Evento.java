@@ -82,6 +82,7 @@ public class Evento {
         scanner.nextLine();
         System.out.println("Ingrese la URL del evento a actualizar:");
         String urlRegistro = scanner.nextLine();
+        Evento evento = new Evento(id, nombre, fecha, horaInicio, horaFin, lugar, publicoObjetivo, urlRegistro);
     }
 
 
