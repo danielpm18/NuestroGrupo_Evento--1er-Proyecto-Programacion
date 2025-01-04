@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.nio.Buffer;
+import java.io.*;
 import java.util.Scanner;
 
 public class Evento {
@@ -12,14 +8,14 @@ public class Evento {
     Scanner scanner = new Scanner(System.in);
 
     //VARIABLES DEL EVENTO
-    public int id;
-    public String nombre;
-    public String fecha;
-    public String horaInicio;
-    public String horaFin;
-    public String lugar;
-    public int publicoObjetivo;
-    public String URLregistro;
+    private int id;
+    private String nombre;
+    private String fecha;
+    private String horaInicio;
+    private String horaFin;
+    private String lugar;
+    private int publicoObjetivo;
+    private String URLregistro;
 
 
     //CONSTRUCTOR DE EVENTOS
@@ -34,6 +30,121 @@ public class Evento {
         this.publicoObjetivo = publicoObjetivo;
         this.URLregistro = URLregistro;
 
+    }
+
+    public Evento(){
+    }
+
+    //Metodo para tomar y escribir cada atributo a la hoja de eventos.
+    public int tomarId() {
+        return id;
+    }
+
+    public void ponerId(int id) {
+        this.id = id;
+    }
+
+    public String tomarNombre() {
+        return nombre;
+    }
+
+    public void ponerNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String tomarFecha() {
+        return fecha;
+    }
+
+    public void ponerFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String tomarHoraInicio() {
+        return horaInicio;
+    }
+
+    public void ponerHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String tomarHoraFin() {
+        return horaFin;
+    }
+
+    public void ponerHoraFin(String horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public String tomarLugar() {
+        return lugar;
+    }
+
+    public void ponerLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public int tomarPublicoObjetivo() {
+        return publicoObjetivo;
+    }
+
+    public void ponerPublicoObjetivo(int publicoObjetivo) {
+        this.publicoObjetivo = publicoObjetivo;
+    }
+
+    public String tomarUrl() {
+        return URLregistro;
+    }
+
+    public void ponerUrl(String url) {
+        this.URLregistro = url;
+    }
+
+
+    //METODO PARA CREAR EL EVENTO EN CONSOLA
+    public void crearEvento() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el ID del evento a crear:");
+        this.id = sc.nextInt();
+        sc.nextLine(); //Limpiar
+
+        System.out.println("Ingrese el nombre del evento a crear:");
+        this.nombre = sc.nextLine();
+
+        System.out.println("Ingrese la fecha del evento a crear(DD/MM/AAAA):");
+        this.fecha = sc.nextLine();
+
+        System.out.println("Ingrese la hora de inicio del evento a crear:");
+        this.horaInicio = sc.nextLine();
+
+        System.out.println("Ingrese la hora de fin del evento a crear:");
+        this.horaFin = sc.nextLine();
+
+        System.out.println("Ingrese el lugar del evento a crear:");
+        this.lugar = sc.nextLine();
+
+        System.out.println("Ingrese el publico Objetivo del evento a crear: (1: Estudiantes, 2: Profesorado, 3: Comunidad Universitaria");
+        this.publicoObjetivo = sc.nextInt();
+
+        System.out.println("Ingrese la URL del evento a crear:");
+        this.URLregistro = sc.nextLine();
+
+        System.out.println("El evento " + nombre + "  ha sido creado con exito");
+
+    }
+
+    //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
+    public void mostrarEvento() {
+
+        System.out.println("ID: " + id);
+        System.out.println("NOMBRE: " + nombre);
+        System.out.println("FECHA: " + fecha);
+        System.out.println("HORA INICIO: " + horaInicio);
+        System.out.println("HORA FIN: " + horaFin);
+        System.out.println("LUGAR: " + lugar);
+        System.out.println("PUBLICO: " + publicoObjetivo);
+        System.out.println("URL: " + URLregistro);
     }
 
     //METODO PARA CARGAR EL EVENTO EN CONSOLA
@@ -60,7 +171,7 @@ public class Evento {
     }
 
     //METODO PARA GUARDAR LOS EVENTOS EN CONSOLA
-    public static guardarEvento() {
+    public void guardarEvento() throws IOException {
         try (BufferedWriter gE = new BufferedWriter(new FileWriter("data\\eventosGUARDADOS.txt"))) {
             for (int i = 0; i < contador; i++) {
                 //  gE.write(Evento[i].)
@@ -68,23 +179,8 @@ public class Evento {
         }
     }
 
-    //METODO PARA CREAR EL EVENTO EN CONSOLA
-    public String crearEvento() {
-        return id + ";" + fecha + ";" + nombre + ";" + horaInicio + ";" + horaFin + ";" + lugar + ";" + publicoObjetivo + ";" + URLregistro;
-    }
 
-    //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
-    public void mostrarEvento() {
 
-        System.out.println("ID: " + id);
-        System.out.println("NOMBRE: " + nombre);
-        System.out.println("FECHA: " + fecha);
-        System.out.println("HORA INICIO: " + horaInicio);
-        System.out.println("HORA FIN: " + horaFin);
-        System.out.println("LUGAR: " + lugar);
-        System.out.println("PUBLICO: " + (publicoObjetivo == 1 ? "Estudiantes" : (publicoObjetivo == 2 ? "Profesorado" : "Comunidad Universitaria")));
-        System.out.println("URL: " + URLregistro);
-    }
 
     //METODO PARA ACTUALIZAR EL EVENTO EN CONSOLA
     public void actualizarEvento() {
@@ -96,7 +192,7 @@ public class Evento {
             if (evento[i].id == id) {
                 System.out.println("Ingrese el nombre del evento a actualizar:");
                 String nuevonombre = scanner.nextLine();
-                if (nuevonombre.length() > 0) {
+                if (nuevonombre.length() > 0) { //Verificar si el evento introducido tiene nombre y horas reales
                     evento[i].nombre = nuevonombre;
                 }
                 System.out.println("Ingrese la fecha del evento a actualizar:");
@@ -141,7 +237,7 @@ public class Evento {
         scanner.nextLine();
 
         for(int i = 0; i < contador; i++){
-            if (evento[i].id == id{
+            if (evento[i].id == id){
                 evento[i] = evento[contador - 1];
                 evento[contador - 1] = null;
                 contador--;
