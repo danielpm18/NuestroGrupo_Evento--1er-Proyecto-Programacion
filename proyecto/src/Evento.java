@@ -41,7 +41,6 @@ public class Evento {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Ingrese el ID del evento a crear:");
-
         this.id = sc.nextInt();
         sc.nextLine(); //Limpiar
 
@@ -73,9 +72,15 @@ public class Evento {
         System.out.println("Ingrese la URL del evento a crear:");
         this.URLregistro = sc.nextLine();
 
-        System.out.println("El evento " + nombre + "  ha sido creado con exito");
+        if(contador < evento.length){ //verificar que haya espacio y crear otra línea
+            evento[contador++] = new Evento(id, nombre, fecha, horaInicio, horaFin, lugar, publicoObjetivo, URLregistro);
+        } else { System.out.println("No hay espacio en el arreglo"); }
 
         guardarEvento();
+
+        System.out.println("El evento " + nombre + "  ha sido creado con exito.\n\n");
+
+
     }
 
 
@@ -117,7 +122,7 @@ public class Evento {
 
     //METODO PARA GUARDAR LOS EVENTOS EN CONSOLA
     public void guardarEvento() throws IOException {
-        try (BufferedWriter gE = new BufferedWriter(new FileWriter(ARCHIVO, true))) {
+        try (BufferedWriter gE = new BufferedWriter(new FileWriter(ARCHIVO, false))) {
             for (int i = 0; i < contador; i++) {
                     gE.write(
                             evento[i].id + ";" +
@@ -131,6 +136,8 @@ public class Evento {
                     );
                     gE.newLine();
             }
+        } catch (Exception e) {
+            System.out.println("No se pudo guardar el archivo: " + e.getMessage());
         }
     }
 
@@ -198,6 +205,6 @@ public class Evento {
                 return;
             }
         }
-        System.out.println("ID no encontrado");
+
     }
 }
