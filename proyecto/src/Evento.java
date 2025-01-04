@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Evento {
-    private static final String ARCHIVO = "data\\eventosSTEAM.cvs";
+    private static final String ARCHIVO = "proyecto/data/eventosSTEAM.csv";
     private static final Evento[] evento = new Evento[150];
     private static int contador = 0;
     Scanner scanner = new Scanner(System.in);
@@ -37,10 +37,11 @@ public class Evento {
 
 
     //METODO PARA CREAR EL EVENTO EN CONSOLA
-    public void crearEvento() {
+    public void crearEvento() throws IOException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Ingrese el ID del evento a crear:");
+
         this.id = sc.nextInt();
         sc.nextLine(); //Limpiar
 
@@ -60,14 +61,23 @@ public class Evento {
         this.lugar = sc.nextLine();
 
         System.out.println("Ingrese el publico Objetivo del evento a crear: (1: Estudiantes, 2: Profesorado, 3: Comunidad Universitaria");
-        this.publicoObjetivo = sc.nextInt();
+
+        int publico = sc.nextInt();
+        while(publico < 1 || publico > 3) {
+            System.out.println("El publico debe ser un numero entre el 1-3");
+            publico = sc.nextInt();
+        }
+        this.publicoObjetivo = publico;
+        sc.nextLine();
 
         System.out.println("Ingrese la URL del evento a crear:");
         this.URLregistro = sc.nextLine();
 
         System.out.println("El evento " + nombre + "  ha sido creado con exito");
 
+        guardarEvento();
     }
+
 
     //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
     public void mostrarEvento() {
@@ -84,7 +94,7 @@ public class Evento {
 
     //METODO PARA CARGAR EL EVENTO EN CONSOLA
     public static void cargarEvento() {
-        try (BufferedReader cE = new BufferedReader(new FileReader("data\\eventosSTEAM.csv"))) {
+        try (BufferedReader cE = new BufferedReader(new FileReader(ARCHIVO))) {
             String linea;
             int numEvento = 1;
             while ((linea = cE.readLine()) != null) {
@@ -107,14 +117,22 @@ public class Evento {
 
     //METODO PARA GUARDAR LOS EVENTOS EN CONSOLA
     public void guardarEvento() throws IOException {
-        try (BufferedWriter gE = new BufferedWriter(new FileWriter("data\\eventosGUARDADOS.txt"))) {
+        try (BufferedWriter gE = new BufferedWriter(new FileWriter(ARCHIVO, true))) {
             for (int i = 0; i < contador; i++) {
-                //  gE.write(Evento[i].)
+                    gE.write(
+                            evento[i].id + ";" +
+                                    evento[i].nombre + ";" +
+                                    evento[i].fecha + ";" +
+                                    evento[i].horaInicio + ";" +
+                                    evento[i].horaFin + ";" +
+                                    evento[i].lugar + ";" +
+                                    evento[i].publicoObjetivo + ";" +
+                                    evento[i].URLregistro + ";"
+                    );
+                    gE.newLine();
             }
         }
     }
-
-
 
 
     //METODO PARA ACTUALIZAR EL EVENTO EN CONSOLA
