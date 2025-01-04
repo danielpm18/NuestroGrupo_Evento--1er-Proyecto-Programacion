@@ -17,7 +17,6 @@ public class Evento {
     private int publicoObjetivo;
     private String URLregistro;
 
-
     //CONSTRUCTOR DE EVENTOS
     public Evento(int id, String nombre, String fecha, String horaInicio, String horaFin, String lugar, int publicoObjetivo, String URLregistro) {
 
@@ -29,13 +28,10 @@ public class Evento {
         this.lugar = lugar;
         this.publicoObjetivo = publicoObjetivo;
         this.URLregistro = URLregistro;
-
     }
 
     public Evento(){
     }
-
-
     //METODO PARA CREAR EL EVENTO EN CONSOLA
     public void crearEvento() throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -75,14 +71,9 @@ public class Evento {
         if(contador < evento.length){ //verificar que haya espacio y crear otra línea
             evento[contador++] = new Evento(id, nombre, fecha, horaInicio, horaFin, lugar, publicoObjetivo, URLregistro);
         } else { System.out.println("No hay espacio en el arreglo"); }
-
         guardarEvento();
-
         System.out.println("El evento " + nombre + "  ha sido creado con exito.\n\n");
-
-
     }
-
 
     //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
     public void mostrarEvento() {
@@ -101,7 +92,6 @@ public class Evento {
     public static void cargarEvento() {
         try (BufferedReader cE = new BufferedReader(new FileReader(ARCHIVO))) {
             String linea;
-            int numEvento = 1;
             while ((linea = cE.readLine()) != null) {
                 String[] parte = linea.split(";");
                 int id = Integer.parseInt(parte[0]);
