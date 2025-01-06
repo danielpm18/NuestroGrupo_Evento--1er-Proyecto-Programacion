@@ -206,64 +206,65 @@ public class Evento {
 
         for (int i = 0; i < contador; i++) {
             if (evento[i].nombre.equalsIgnoreCase(nombre)) {
-                Evento eventoSeleccionado = evento[i];
+                Evento evento2 = evento[i];
                 System.out.println("Detalles actuales del evento:");
-                System.out.println("ID: " + eventoSeleccionado.id);
-                System.out.println("Nombre: " + eventoSeleccionado.nombre);
-                System.out.println("Fecha: " + eventoSeleccionado.fecha);
-                System.out.println("Hora de inicio: " + eventoSeleccionado.horaInicio);
-                System.out.println("Hora de fin: " + eventoSeleccionado.horaFin);
-                System.out.println("Lugar: " + eventoSeleccionado.lugar);
-                System.out.println("Público objetivo: " + eventoSeleccionado.publicoObjetivo);
-                System.out.println("URL de registro: " + eventoSeleccionado.URLregistro);
+                System.out.println("ID: " + evento2.id);
+                System.out.println("Nombre: " + evento2.nombre);
+                System.out.println("Fecha: " + evento2.fecha);
+                System.out.println("Hora de inicio: " + evento2.horaInicio);
+                System.out.println("Hora de fin: " + evento2.horaFin);
+                System.out.println("Lugar: " + evento2.lugar);
+                System.out.println("Público objetivo: " + evento2.publicoObjetivo);
+                System.out.println("URL de registro: " + evento2.URLregistro);
 
                 System.out.println("Ingrese el nombre del evento a actualizar:");
                 String nuevonombre = scanner.nextLine();
                 if (nuevonombre.length() > 0) { //Verificar si el evento introducido tiene nombre y horas reales
-                    eventoSeleccionado.nombre = nuevonombre;
+                    evento2.nombre = nuevonombre;
                 }
                 System.out.println("Ingrese la fecha del evento a actualizar:");
                 String nuevafecha = scanner.nextLine();
                 if (nuevafecha.length() > 0) {
-                    eventoSeleccionado.fecha = nuevafecha;
+                    evento2.fecha = nuevafecha;
                 }
                 System.out.println("Ingrese la hora de inicio del evento a actualizar:");
                 String nuevahoraInicio = scanner.nextLine();
                 if (nuevahoraInicio.length() > 0) {
-                    eventoSeleccionado.horaInicio = nuevahoraInicio;
+                    evento2.horaInicio = nuevahoraInicio;
                 }
                 System.out.println("Ingrese la hora de fin del evento a actualizar:");
                 String nuevahoraFin = scanner.nextLine();
                 if (nuevahoraFin.length() > 0) {
-                    eventoSeleccionado.horaFin = nuevahoraFin;
+                    evento2.horaFin = nuevahoraFin;
                 }
                 System.out.println("Ingrese el lugar del evento a actualizar:");
                 String nuevolugar = scanner.nextLine();
                 if (nuevolugar.length() > 0) {
-                    eventoSeleccionado.lugar = nuevolugar;
+                    evento2.lugar = nuevolugar;
                 }
                 System.out.println("Ingrese el publico Objetivo del evento a actualizar: (1: Estudiantes, 2: Profesorado, 3: Comunidad Universitaria");
                 int nuevopublicoObjetivo = scanner.nextInt();
                 if (nuevopublicoObjetivo >= 1 && nuevopublicoObjetivo <= 3) {
-                    eventoSeleccionado.publicoObjetivo = nuevopublicoObjetivo;
+                    evento2.publicoObjetivo = nuevopublicoObjetivo;
                 } else {
                     System.out.println("Opcion incorrecta. Coloque una de las opciones mostradas");
                 }
                 System.out.println("Ingrese la URL del evento a actualizar:");
                 String nuevoURLregistro = scanner.nextLine();
+                scanner.nextLine();
                 if (nuevoURLregistro.length() > 0) {
-                    eventoSeleccionado.URLregistro = nuevoURLregistro;
-
-                    encontrado = true;
-                    break;
+                    evento2.URLregistro = nuevoURLregistro;
                 }
+                encontrado = true;
+                break;
             }
-            if (encontrado){
-                guardarEvento();
-                System.out.println("Evento actualizado con éxtio");
-            }else{
-                System.out.println("Evento no encontrado");
-            }
+        }
+        if (encontrado){
+            guardarEvento();
+            System.out.println("Evento actualizado con éxtio");
+        }else {
+            System.out.println("Evento no encontrado");
+
         }
     }
 
