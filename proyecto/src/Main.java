@@ -25,7 +25,7 @@ public class Main {
                     e.eliminarEvento();
                     break;
                 case 5:
-                    System.out.println("Programa terminado. ¡Hasta Luego!");
+                    System.out.println("Programa finalizado. Vuela pronto!");
                     e.guardarEvento();
                     return;
                 default:
