@@ -1,7 +1,6 @@
-import java.io.IOException;
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Evento e = new Evento();
         int opcion;
@@ -25,12 +24,12 @@ public class Main {
                     e.eliminarEvento();
                     break;
                 case 5:
-                    System.out.println("Programa finalizado. Vuela pronto!");
+                    System.out.println("Programa terminado. ¡Hasta Luego!");
                     e.guardarEvento();
                     return;
                 default:
                     System.out.println("Opcion incorrecta. Coloque una de las opciones mostradas");
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 }

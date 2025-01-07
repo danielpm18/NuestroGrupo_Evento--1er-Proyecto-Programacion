@@ -18,7 +18,8 @@ public class Evento {
     private String URLregistro;
 
     //CONSTRUCTOR DE EVENTOS
-    public Evento(int id, String nombre, String fecha, String horaInicio, String horaFin, String lugar, int publicoObjetivo, String URLregistro) {
+    public Evento(int id, String nombre, String fecha, String horaInicio,
+                  String horaFin, String lugar, int publicoObjetivo, String URLregistro) {
 
         this.id = id;
         this.nombre = nombre;
@@ -38,7 +39,7 @@ public class Evento {
     }
 
     //METODO PARA CREAR EL EVENTO EN CONSOLA
-    public void crearEvento() throws IOException {
+    public void crearEvento() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Ingrese el ID del evento a crear:");
@@ -91,35 +92,78 @@ public class Evento {
     //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
     public void mostrarEvento() {
         cargarEvento();
-        if(contador == 0){
+        if (contador == 0) {
             System.out.println("No hay eventos para mostrar");
             return;
         }
-        System.out.println("Estos son los eventos: ");
-        for (int i = 0; i < contador; i++){
-            System.out.println("Evento: " +evento[i].nombre);
-        }
-        System.out.print("Ingrese el nombre a mostrar: ");
-        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese una opcion de busqueda: \n  1. Buscar eventos en el mismo dia." +
+                "\n  2. Buscar evento de la misma semana.\n  3. Buscar eventos en el mismo mes.");
+
+        int opcion = scanner.nextInt();
+        scanner.nextLine();
+
+
+        System.out.println("Ingrese la fecha de busqueda(DD/MM/AAAA):");
+        String fechaBuscar = scanner.nextLine();
+        String[] fechaPartes = fechaBuscar.split("/");
+
+        String diaFechaBuscar = fechaPartes[0];
+        String mesFechaBuscar = fechaPartes[1];
+        String anoFechaBuscar = fechaPartes[2];
+
 
         boolean encontrado = false;
-        for (int i = 0; i < contador; i++) {
-            if (evento[i].nombre.equalsIgnoreCase(nombre)) {
-                Evento evento1 = evento[i];
-                System.out.println("ID: " + evento1.id);
-                System.out.println("Nombre: " + evento1.nombre);
-                System.out.println("Fecha: " + evento1.fecha);
-                System.out.println("Hora de inicio: " + evento1.horaInicio);
-                System.out.println("Hora de fin: " + evento1.horaFin);
-                System.out.println("Lugar: " + evento1.lugar);
-                System.out.println("Público objetivo: " + evento1.publicoObjetivo);
-                System.out.println("URL de registro: " + evento1.URLregistro);
+
+
+        String[] partesFechaEvento;
+
+
+        for(int i =0; i<contador; i++){
+
+            partesFechaEvento = evento[i].fecha.split("/");
+
+            String diaEvento = partesFechaEvento[0];
+            String mesEvento = partesFechaEvento[1];
+            String anoEvento = partesFechaEvento[2];
+
+            boolean coincide = false;
+            switch (opcion){
+                case 1:
+                    coincide = diaFechaBuscar.equals(diaEvento) && mesFechaBuscar.equals(mesEvento) && anoFechaBuscar.equals(anoEvento);
+                    break;
+
+                case 2:
+                    coincide = diaFechaBuscar.equals(diaEvento) && mesFechaBuscar.equals(mesEvento);
+                    break;
+
+                case 3:
+                    coincide = diaFechaBuscar.equals(diaEvento) && anoFechaBuscar.equals(anoEvento);
+                    break;
+
+                default:
+                    System.out.println("Opcion incorrecta. Coloque una de las opciones mostradas");
+
+            }
+
+            System.out.println("Estos son los eventos encontrados segun su busqueda:\n");
+
+            if(coincide){
+                System.out.println("ID: " + evento[i].id);
+                System.out.println("Nombre: " + evento[i].nombre);
+                System.out.println("Fecha: " + evento[i].fecha);
+                System.out.println("Hora de inicio: " + evento[i].horaInicio);
+                System.out.println("Hora de fin: " + evento[i].horaFin);
+                System.out.println("Lugar: " + evento[i].lugar);
+                System.out.println("Público objetivo: " + evento[i].publicoObjetivo);
+                System.out.println("URL de registro: " + evento[i].URLregistro);
+
                 encontrado = true;
             }
         }
 
         if (!encontrado) {
-            System.out.println("No se encontraron eventos con el nombre indicado.");
+            System.out.println("No se han encontrado eventos para la fecha especificada.");
         }
     }
 
@@ -154,26 +198,6 @@ public class Evento {
         }
     }
 
-    //METODO PARA GUARDAR LOS EVENTOS EN CONSOLA
-//    public void guardarEvento() throws IOException {
-//        try (BufferedWriter gE = new BufferedWriter(new FileWriter(ARCHIVO, false))) {
-//            for (int i = 0; i < contador; i++) {
-//                gE.write(
-//                        evento[i].id + ";" +
-//                                evento[i].nombre + ";" +
-//                                evento[i].fecha + ";" +
-//                                evento[i].horaInicio + ";" +
-//                                evento[i].horaFin + ";" +
-//                                evento[i].lugar + ";" +
-//                                evento[i].publicoObjetivo + ";" +
-//                                evento[i].URLregistro + ";"
-//                );
-//                gE.newLine();
-//            }
-//        } catch (Exception e) {
-//            System.out.println("No se pudo guardar el archivo: " + e.getMessage());
-//        }
-//    }
     public static void guardarEvento() {
         try (BufferedWriter gE = new BufferedWriter(new FileWriter(ARCHIVO))) {
             for (int i = 0; i < contador; i++) {
