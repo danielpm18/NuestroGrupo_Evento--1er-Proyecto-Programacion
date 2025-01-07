@@ -10,7 +10,7 @@ public class Main {
             opcion = sc.nextInt();
             sc.nextLine();
 
-            switch (opcion) {
+            switch (opcion) { //bucle con todas las opciones
                 case 1:
                     e.crearEvento();
                     break;

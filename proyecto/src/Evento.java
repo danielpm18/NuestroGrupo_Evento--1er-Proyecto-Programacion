@@ -31,9 +31,7 @@ public class Evento {
         this.URLregistro = URLregistro;
     }
 
-    public String formatearEvento() {
-        return id + ";" + nombre + ";" + fecha + ";" + horaInicio + ";" + horaFin + ";" + lugar + ";" + publicoObjetivo + ";" + URLregistro;
-    }
+
 
     public Evento() {
     }
@@ -121,7 +119,7 @@ public class Evento {
 
         for(int i =0; i<contador; i++){
 
-            partesFechaEvento = evento[i].fecha.split("/"); //separa el dia mes y año de la fecha del evento.
+            partesFechaEvento = evento[i].fecha.split("/"); //separa el día mes y año de la fecha del evento.
 
             String diaEvento = partesFechaEvento[0];
             String mesEvento = partesFechaEvento[1];
