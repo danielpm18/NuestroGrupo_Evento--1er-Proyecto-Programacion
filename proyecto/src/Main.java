@@ -30,6 +30,6 @@ public class Main {
                 default:
                     System.out.println("Opcion incorrecta. Coloque una de las opciones mostradas");
             }
-        } while (opcion != 5);
+        } while (opcion != 5); //repetir hasta que utilize la opcion de terminar
     }
 }

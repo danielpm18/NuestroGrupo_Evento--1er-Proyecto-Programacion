@@ -121,7 +121,7 @@ public class Evento {
 
         for(int i =0; i<contador; i++){
 
-            partesFechaEvento = evento[i].fecha.split("/");
+            partesFechaEvento = evento[i].fecha.split("/"); //separa el dia mes y año de la fecha del evento.
 
             String diaEvento = partesFechaEvento[0];
             String mesEvento = partesFechaEvento[1];
@@ -129,7 +129,7 @@ public class Evento {
 
             boolean coincide = false;
             switch (opcion){
-                case 1:
+                case 1: //verifica si el dia año y mes son iguales
                     coincide = diaFechaBuscar.equals(diaEvento) && mesFechaBuscar.equals(mesEvento) && anoFechaBuscar.equals(anoEvento);
                     break;
 
