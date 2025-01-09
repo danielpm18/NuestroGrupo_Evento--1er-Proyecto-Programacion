@@ -41,13 +41,14 @@ public class Evento {
         this.id = sc.nextInt();
         sc.nextLine(); //Limpiar
 
-        for (int i = 0; i < contador; i++) {
+        for (int i = 0; i < contador; i++) { //Verifica para que ningún evento contenga el mismo ID.
             if (evento[i].id == id) {
                 System.out.println("Ya existe un evento con el ID ingresado. Intente con otro ID.");
                 return;
             }
         }
 
+        //Utiliza la consola para introducir datos y crear evento para STEAM.
         System.out.println("Ingrese el nombre del evento a crear:");
         this.nombre = sc.nextLine();
 
@@ -75,24 +76,24 @@ public class Evento {
         System.out.println("Ingrese la URL del evento a crear:");
         this.URLregistro = sc.nextLine();
 
-        if (contador < evento.length) { //verificar que haya espacio y crear otra línea
+        if (contador < evento.length) { //Verifica que haya espacio y crear otra línea
             evento[contador++] = new Evento(id, nombre, fecha, horaInicio, horaFin, lugar, publicoObjetivo, URLregistro);
         } else {
             System.out.println("No hay espacio en el arreglo");
         }
         guardarEvento();
-        System.out.println("El evento " + nombre + " ha sido creado con exito.\n\n");
+        System.out.println("El evento " + nombre + " ha sido creado con éxito.\n\n"); //Se creó el evento con éxito.
     }
 
     //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
     public void mostrarEvento() {
         cargarEvento();
-        if (contador == 0) {
+        if (contador == 0) { //Si el CSV está vacío mostrará este mensaje y acabará la función.
             System.out.println("No hay eventos para mostrar");
             return;
         }
-        System.out.println("Ingrese una opcion de busqueda: \n  1. Buscar eventos en el mismo dia." +
-                "\n  2. Buscar evento de la misma semana.\n  3. Buscar eventos en el mismo mes.");
+        System.out.println("Ingrese una opción de búsqueda: \n  1. Buscar eventos en el mismo dia." +
+                "\n  2. Buscar evento de la misma semana.\n  3. Buscar eventos en el mismo mes."); //Pregunta sobre qué día/semana/mes quieres ver que tiene eventos
 
         int opcion = scanner.nextInt();
         scanner.nextLine();
@@ -100,30 +101,28 @@ public class Evento {
 
         System.out.println("Ingrese la fecha de busqueda(DD/MM/AAAA):");
         String fechaBuscar = scanner.nextLine();
-        String[] fechaPartes = fechaBuscar.split("/");
+        String[] fechaPartes = fechaBuscar.split("/"); //Separa la fecha para compararlos separados.
 
         String diaFechaBuscar = fechaPartes[0];
         String mesFechaBuscar = fechaPartes[1];
         String anoFechaBuscar = fechaPartes[2];
 
-
-        boolean encontrado = false;
-
+        boolean encontrado = false; //Mientras este falso ningún evento cumple con la condición de la función.
 
         String[] partesFechaEvento;
 
 
-        for(int i =0; i<contador; i++){
+        for (int i =0; i<contador; i++){
 
-            partesFechaEvento = evento[i].fecha.split("/"); //separa el dia mes y año de la fecha del evento.
+            partesFechaEvento = evento[i].fecha.split("/"); //Separa el día mes y año de la fecha de todos los eventos del CSV.
 
             String diaEvento = partesFechaEvento[0];
             String mesEvento = partesFechaEvento[1];
             String anoEvento = partesFechaEvento[2];
 
             boolean coincide = false;
-            switch (opcion){
-                case 1: //verifica si el dia año y mes son iguales
+            switch (opcion){ //Compara cada caso y si coindicen vuelve "coincide" verdadero y se imprimen los eventos.
+                case 1: //Verifica si el dia año y mes son iguales
                     coincide = diaFechaBuscar.equals(diaEvento) && mesFechaBuscar.equals(mesEvento) && anoFechaBuscar.equals(anoEvento);
                     break;
 
@@ -140,9 +139,9 @@ public class Evento {
 
             }
 
-            System.out.println("Estos son los eventos encontrados segun su busqueda:\n");
+            System.out.println("Estos son los eventos encontrados según su búsqueda:\n");
 
-            if(coincide){
+            if (coincide) {
                 System.out.println("ID: " + evento[i].id);
                 System.out.println("Nombre: " + evento[i].nombre);
                 System.out.println("Fecha: " + evento[i].fecha);
@@ -209,13 +208,13 @@ public class Evento {
     //METODO PARA ACTUALIZAR EL EVENTO EN CONSOLA
     public void actualizarEvento() {
         cargarEvento();
-        if(contador == 0){
+        if(contador == 0){ //Si no hay eventos en el CSV manda este mensaje y la función se detiene.
             System.out.println("No hay eventos para actualizar");
             return;
         }
         System.out.println("Estos los eventos a actualizar");
-        for (int i = 0; i < contador; i++){
-            System.out.println("Evento ID: " +evento[i].id+ "| Evento Nombre: " +evento[i].nombre);
+        for (int i = 0; i < contador; i++) {
+            System.out.println("Evento ID: " +evento[i].id+ "| Evento Nombre: " +evento[i].nombre); //Muestra todos los eventos disponibles que se puedan actualizar.
         }
         System.out.println("Ingrese el ID del evento que desee actualizar:");
         int id = scanner.nextInt();
@@ -224,7 +223,7 @@ public class Evento {
         boolean encontrado = false;
 
         for (int i = 0; i < contador; i++) {
-            if (evento[i].id == id) {
+            if (evento[i].id == id) { //Al evento ser encontrado con el ID, te muestra la información que se pueda actualizar.
                 Evento evento2 = evento[i];
                 System.out.println("Detalles actuales del evento:");
                 System.out.println("ID: " + evento2.id);
@@ -266,7 +265,7 @@ public class Evento {
                 if (nuevopublicoObjetivo >= 1 && nuevopublicoObjetivo <= 3) {
                     evento2.publicoObjetivo = nuevopublicoObjetivo;
                 } else {
-                    System.out.println("Opcion incorrecta. Coloque una de las opciones mostradas");
+                    System.out.println("Opción incorrecta. Coloque una de las opciones mostradas");
                 }
                 System.out.println("Ingrese la URL del evento a actualizar:");
                 String nuevoURLregistro = scanner.nextLine();
@@ -280,23 +279,24 @@ public class Evento {
         }
         if (encontrado){
             guardarEvento();
-            System.out.println("Evento actualizado con éxtio");
+            System.out.println("Evento actualizado con éxito");
         }else {
             System.out.println("Evento no encontrado");
 
         }
     }
 
-    //METODO PARA ELIMINAR EL EVENTO EN CONSOLA
+    //METODO PARA ELIMINAR EVENTOS
     public void eliminarEvento() {
         cargarEvento();
+
         if (contador == 0) {
-            System.out.println("No hay eventos disponibles para eliminar.");
+            System.out.println("No hay eventos disponibles para eliminar."); //Si el CSV no tiene eventos manda este mensaje y deja de correr la función.
             return;
         }
         System.out.println("Eventos disponibles para eliminar:");
         for (int i = 0; i < contador; i++) {
-            System.out.println("Evento ID: " + evento[i].id + "| Nombre: " +evento[i].nombre);
+            System.out.println("Evento ID: " + evento[i].id + "| Nombre: " +evento[i].nombre); //Muestra todos los eventos con información util para elegir cuál eliminar.
         }
         System.out.println("Ingrese el ID que desee eliminar: ");
         int id = scanner.nextInt();
@@ -306,14 +306,14 @@ public class Evento {
 
         if (eliminado) {
             guardarEvento();
-            System.out.println("El Evento " + id + " fue eliminado con exito");
-        }else{
+            System.out.println("El Evento " + id + " fue eliminado con éxito");
+        } else {
             System.out.println("No se encontró un evento con el nombre especificado.");
         }
 
     }
 
-    public boolean eliminarPorNombre(int id) {
+    public boolean eliminarPorNombre(int id) { //Función para eliminar el evento introducido.
         for (int i = 0; i < contador; i++) {
             if (evento[i].id == id) {
                 for (int j = i; j < contador - 1; j++) {
@@ -325,6 +325,43 @@ public class Evento {
             }
         }
         return false;
+    }
+
+    public void estadisticasEventos() {
+
+        cargarEvento();
+
+        if(contador == 0) { System.out.println("No hay eventos registrados.\n"); return; }
+
+        //Contador de cantidad de eventos al mes.
+        int[] eventosMes = new int[12];
+
+        for(int i = 0; i<contador; i++){
+
+            String[] partesFecha = evento[i].fecha.split("/"); // Divide la fecha en trozos
+
+            int mes = Integer.parseInt(partesFecha[1]) - 1; // Toma el mes del String y lo convierte en un int.
+
+            eventosMes[mes]++;
+
+        }
+
+        int maxEventosMes = 0;
+        int mesMasEventos = 0;
+
+        for (int i = 0; i<12; i++) { //Compara todos los meses con la cantidad de eventos que tiene cada uno.
+            if (eventosMes[i] > maxEventosMes) {
+                maxEventosMes = eventosMes[i];
+                mesMasEventos = i;
+
+            }
+        }
+
+        String[] nombreDeMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}; //Array con nombre de todos los meses.
+
+        System.out.println("Mes con más eventos: " + nombreDeMeses[mesMasEventos] + " con " + maxEventosMes + " eventos.\n");
+
     }
 }
 
