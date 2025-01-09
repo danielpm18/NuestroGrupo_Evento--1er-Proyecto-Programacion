@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Evento {
     private static final String ARCHIVO = "proyecto/data/eventosSTEAM.csv";
-    private static final Evento[] evento = new Evento[150];
+    private static final Evento[] evento = new Evento[150]; //TIENE Q IR EN MAYUS
     private static int contador = 0;
     Scanner scanner = new Scanner(System.in);
 
@@ -18,9 +18,8 @@ public class Evento {
     private String URLregistro;
 
     //CONSTRUCTOR DE EVENTOS
-    public Evento(int id, String nombre, String fecha, String horaInicio,
-                  String horaFin, String lugar, int publicoObjetivo, String URLregistro) {
-
+    public Evento(int id, String nombre, String fecha, String horaInicio, String horaFin, String lugar, int publicoObjetivo, String URLregistro) {
+// RETORNA LA DATA
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
@@ -30,8 +29,6 @@ public class Evento {
         this.publicoObjetivo = publicoObjetivo;
         this.URLregistro = URLregistro;
     }
-
-
 
     public Evento() {
     }
@@ -84,7 +81,7 @@ public class Evento {
             System.out.println("No hay espacio en el arreglo");
         }
         guardarEvento();
-        System.out.println("El evento " + nombre + "  ha sido creado con exito.\n\n");
+        System.out.println("El evento " + nombre + " ha sido creado con exito.\n\n");
     }
 
     //METODO PARA MOSTRAR EL EVENTO EN CONSOLA
@@ -94,7 +91,6 @@ public class Evento {
             System.out.println("No hay eventos para mostrar");
             return;
         }
-
         System.out.println("Ingrese una opcion de busqueda: \n  1. Buscar eventos en el mismo dia." +
                 "\n  2. Buscar evento de la misma semana.\n  3. Buscar eventos en el mismo mes.");
 
@@ -119,7 +115,7 @@ public class Evento {
 
         for(int i =0; i<contador; i++){
 
-            partesFechaEvento = evento[i].fecha.split("/"); //separa el día mes y año de la fecha del evento.
+            partesFechaEvento = evento[i].fecha.split("/"); //separa el dia mes y año de la fecha del evento.
 
             String diaEvento = partesFechaEvento[0];
             String mesEvento = partesFechaEvento[1];
@@ -219,15 +215,16 @@ public class Evento {
         }
         System.out.println("Estos los eventos a actualizar");
         for (int i = 0; i < contador; i++){
-            System.out.println("Evento: " +evento[i].nombre);
+            System.out.println("Evento ID: " +evento[i].id+ "| Evento Nombre: " +evento[i].nombre);
         }
-        System.out.println("Ingrese el nombre del evento a actualizar:");
-        String nombre = scanner.nextLine();
+        System.out.println("Ingrese el ID del evento que desee actualizar:");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
         boolean encontrado = false;
 
         for (int i = 0; i < contador; i++) {
-            if (evento[i].nombre.equalsIgnoreCase(nombre)) {
+            if (evento[i].id == id) {
                 Evento evento2 = evento[i];
                 System.out.println("Detalles actuales del evento:");
                 System.out.println("ID: " + evento2.id);
@@ -299,35 +296,35 @@ public class Evento {
         }
         System.out.println("Eventos disponibles para eliminar:");
         for (int i = 0; i < contador; i++) {
-            System.out.println("Evento: " + evento[i].nombre);
+            System.out.println("Evento ID: " + evento[i].id + "| Nombre: " +evento[i].nombre);
         }
-        System.out.println("Ingrese el nombre que desee eliminar: ");
-        String nombre = scanner.nextLine();
+        System.out.println("Ingrese el ID que desee eliminar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-        boolean eliminado = eliminarPorNombre(nombre);
+        boolean eliminado = eliminarPorNombre(id);
 
         if (eliminado) {
             guardarEvento();
-            System.out.println("El Evento" +nombre+ " fue eliminado con exito");
+            System.out.println("El Evento " + id + " fue eliminado con exito");
         }else{
             System.out.println("No se encontró un evento con el nombre especificado.");
         }
 
     }
 
-    public boolean eliminarPorNombre(String nombre) {
+    public boolean eliminarPorNombre(int id) {
         for (int i = 0; i < contador; i++) {
-            if (evento[i].nombre.equalsIgnoreCase(nombre)) {
-                // Desplazar los eventos hacia la izquierda para llenar el vacío
+            if (evento[i].id == id) {
                 for (int j = i; j < contador - 1; j++) {
                     evento[j] = evento[j + 1];
                 }
-                evento[contador - 1] = null; // Limpia la última posición
-                contador--; // Reduce el contador de eventos
-                return true; // Indica que se eliminó el evento
+                evento[contador - 1] = null;
+                contador--;
+                return true;
             }
         }
-        return false; // Indica que no se encontró el evento
+        return false;
     }
 }
 
