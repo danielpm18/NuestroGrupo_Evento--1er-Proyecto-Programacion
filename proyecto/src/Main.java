@@ -5,10 +5,9 @@ public class Main {
         Evento e = new Evento();
         int opcion;
         do {
-
             System.out.println("-----------------------------------------------");
             System.out.println("Que es lo que deseas realizar? \n 1: Crear Evento \n 2: Mostrar Eventos \n 3: Actualizar Evento " +
-                    "\n 4: Eliminar Evento \n 5: Mostrar Mes con mas Eventos \n  6: Salir.");
+                    "\n 4: Eliminar Evento \n 5: Mostrar Mes con mas Eventos \n 6: Salir.");
             System.out.println("-----------------------------------------------");
 
             System.out.print("Ingrese una opcion: ");
@@ -28,11 +27,9 @@ public class Main {
                 case 4:
                     e.eliminarEvento();
                     break;
-
                 case 5:
                     e.estadisticasEventos();
                     break;
-
                 case 6:
                     System.out.println("Programa terminado. ¡Hasta Luego!");
                     Evento.guardarEvento();

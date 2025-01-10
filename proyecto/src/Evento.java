@@ -35,6 +35,10 @@ public class Evento {
 
     //METODO PARA CREAR EL EVENTO EN CONSOLA
     public void crearEvento() {
+        if(contador > evento.length){
+            System.out.println("No hay mas espacios para agregar eventos");
+            return;
+        }
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Ingrese el ID del evento a crear:");
@@ -71,16 +75,13 @@ public class Evento {
             publico = sc.nextInt();
         }
         this.publicoObjetivo = publico;
-        sc.nextLine();
+        sc.nextLine(); //limpiar
 
         System.out.println("Ingrese la URL del evento a crear:");
         this.URLregistro = sc.nextLine();
 
-        if (contador < evento.length) { //Verifica que haya espacio y crear otra línea
-            evento[contador++] = new Evento(id, nombre, fecha, horaInicio, horaFin, lugar, publicoObjetivo, URLregistro);
-        } else {
-            System.out.println("No hay espacio en el arreglo");
-        }
+       evento[contador++] = new Evento(id, nombre, fecha, horaInicio, horaFin, lugar, publicoObjetivo, URLregistro);
+
         guardarEvento();
         System.out.println("El evento " + nombre + " ha sido creado con éxito.\n\n"); //Se creó el evento con éxito.
     }
@@ -96,8 +97,7 @@ public class Evento {
                 "\n  2. Buscar evento de la misma semana.\n  3. Buscar eventos en el mismo mes."); //Pregunta sobre qué día/semana/mes quieres ver que tiene eventos
 
         int opcion = scanner.nextInt();
-        scanner.nextLine();
-
+        scanner.nextLine(); //Limpiar
 
         System.out.println("Ingrese la fecha de busqueda(DD/MM/AAAA):");
         String fechaBuscar = scanner.nextLine();
@@ -337,19 +337,15 @@ public class Evento {
         int[] eventosMes = new int[12];
 
         for(int i = 0; i<contador; i++){
-
             String[] partesFecha = evento[i].fecha.split("/"); // Divide la fecha en trozos
-
             int mes = Integer.parseInt(partesFecha[1]) - 1; // Toma el mes del String y lo convierte en un int.
-
             eventosMes[mes]++;
-
         }
 
         int maxEventosMes = 0;
         int mesMasEventos = 0;
 
-        for (int i = 0; i<12; i++) { //Compara todos los meses con la cantidad de eventos que tiene cada uno.
+        for (int i = 0; i< 12; i++) { //Compara todos los meses con la cantidad de eventos que tiene cada uno.
             if (eventosMes[i] > maxEventosMes) {
                 maxEventosMes = eventosMes[i];
                 mesMasEventos = i;
